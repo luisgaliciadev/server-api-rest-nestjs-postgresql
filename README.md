@@ -42,6 +42,11 @@ $ yarn install
 $ docker-compose up -d
 ```
 
+## SEED
+
+Execute get:
+`http://localhost:3000/api/seed`
+
 ## Running the app
 
 ```bash
