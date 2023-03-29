@@ -7,9 +7,13 @@ import {
   Req,
   Headers,
   SetMetadata,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiCreatedResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+
 import { IncomingHttpHeaders } from 'http';
+
 import { AuthService } from './auth.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { User } from './entities/user.entity';
@@ -18,16 +22,28 @@ import { UserRoleGuard } from './guards/user-role/user-role.guard';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from 'src/interfaces';
 
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiResponse({
+    status: 201,
+    description: 'User was created',
+    type: User,
+  })
   @Post('register')
   create(@Body() createUserDto: CreateUserDto) {
     return this.authService.create(createUserDto);
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'Login successfully',
+    type: User,
+  })
   @Post('login')
+  @HttpCode(200)
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }

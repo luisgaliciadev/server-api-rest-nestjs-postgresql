@@ -10,11 +10,13 @@ import {
 } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { diskStorage } from 'multer';
 import { fileFilter, fileNamer } from './helpers';
 import { Response } from 'express';
 import { ConfigService } from '@nestjs/config';
 
+@ApiTags('Files Products')
 @Controller('files')
 export class FilesController {
   constructor(
@@ -33,6 +35,22 @@ export class FilesController {
   }
 
   @Post('product')
+  @ApiResponse({
+    status: 201,
+    description: 'File was uploated',
+  })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        file: {
+          type: 'string',
+          format: 'binary',
+        },
+      },
+    },
+  })
   @UseInterceptors(
     FileInterceptor('file', {
       fileFilter: fileFilter,
