@@ -21,6 +21,7 @@ import { Auth, GetUser, RawHeaders } from './decorators';
 import { UserRoleGuard } from './guards/user-role/user-role.guard';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from 'src/interfaces';
+import { LoginResponse } from './models/login-response.model';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -40,7 +41,7 @@ export class AuthController {
   @ApiResponse({
     status: 200,
     description: 'Login successfully',
-    type: User,
+    type: LoginResponse,
   })
   @Post('login')
   @HttpCode(200)

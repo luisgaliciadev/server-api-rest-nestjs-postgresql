@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEmail, MinLength } from 'class-validator';
 import { Product } from 'src/products/entities';
 import {
   BeforeInsert,

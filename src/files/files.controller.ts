@@ -31,7 +31,6 @@ export class FilesController {
   ) {
     const path = this.filesService.getStaticProductImage(imageName);
     res.sendFile(path);
-    // return { path };
   }
 
   @Post('product')
